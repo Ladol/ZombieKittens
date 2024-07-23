@@ -1,0 +1,46 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the top of the page */
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.game-container {
+    text-align: center;
+    width: 100%;
+    padding-top: 20px; /* Add padding to top for some space */
+}
+
+.card-count {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+#start-button {
+    display: block;
+    margin: 0 auto 20px auto;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.players {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.player {
+    width: 200px; /* Double the width again */
+    height: 100px;
+    background-color: #e0e0e0;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    margin: 0 20px; /* Increase horizontal separation */
+}
