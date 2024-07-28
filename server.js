@@ -10,6 +10,10 @@ const io = socketIo(server);
 
 app.use(express.static(path.join(__dirname)));
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 let players = [null, null, null, null, null]; // Array to track players
 let gameStarted = false;
 
