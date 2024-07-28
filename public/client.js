@@ -1,4 +1,4 @@
-const socket = io();
+const socket = io('https://https://zombie-kittens.vercel.app');
 
 socket.on('connect', () => {
     console.log('Connected to server');
