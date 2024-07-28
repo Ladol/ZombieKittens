@@ -2,12 +2,13 @@ const { createDeck, shuffleDeck } = require('./deck');
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
+const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname)));
 
 let players = [null, null, null, null, null]; // Array to track players
 let gameStarted = false;
