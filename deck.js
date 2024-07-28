@@ -1,8 +1,8 @@
 // Function to create the deck of cards
 function createDeck() {
     return [
-        { type: 'explode' }, { type: 'explode' }, { type: 'explode' }, { type: 'explode' },
-        { type: 'zombie' }, { type: 'zombie' }, { type: 'zombie', paw: true }, { type: 'zombie', paw: true }, { type: 'zombie' },
+        //{ type: 'explode' }, { type: 'explode' }, { type: 'explode' }, { type: 'explode' },
+        //{ type: 'zombie' }, { type: 'zombie' }, { type: 'zombie', paw: true }, { type: 'zombie', paw: true }, { type: 'zombie' },
         { type: 'attackX2' }, { type: 'attackX2' }, { type: 'attackX2', paw: true }, { type: 'attackX2', paw: true },
         { type: 'attackD' }, { type: 'attackD' }, { type: 'attackD' },
         { type: 'nope' }, { type: 'nope' }, { type: 'nope', paw: true }, { type: 'nope', paw: true }, { type: 'nope', now: true }, { type: 'nope', now: true }, { type: 'nope', now: true }, { type: 'nope', now: true }, { type: 'nope', now: true },

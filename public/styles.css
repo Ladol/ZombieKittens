@@ -44,3 +44,12 @@ body {
     font-size: 1.2em;
     margin: 0 20px; /* Increase horizontal separation */
 }
+
+
+.playedpile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    font-size: 2.5em;
+}

@@ -10,12 +10,16 @@
     <div class="game-container">
         <div class="card-count">Cards: 52</div>
         <button id="start-button" disabled>Start Game</button>
+        <button id="draw-button" enabled>Draw Card</button>
         <div class="players">
             <div class="player player1"></div>
             <div class="player player2"></div>
             <div class="player player3"></div>
             <div class="player player4"></div>
             <div class="player player5"></div>
+        </div>
+        <div class="playedpile">
+            Last card played:
         </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>

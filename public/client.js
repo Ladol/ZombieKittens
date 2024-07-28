@@ -38,6 +38,10 @@ document.getElementById('start-button').addEventListener('click', () => {
     document.getElementById('start-button').disabled = true; // Disable the button once clicked
 });
 
+document.getElementById('draw-button').addEventListener('click', () => {
+    socket.emit('draw_card');
+});
+
 socket.on('receive_hand', ({ playerIndex, hand }) => {
     console.log('Your hand:', hand);
     let cardDropdown = document.querySelector(`#player${playerIndex + 1}-cards`);
@@ -61,4 +65,30 @@ socket.on('no_slots_available', () => {
 
 socket.on('update_card_count', (count) => {
     document.querySelector('.card-count').textContent = `Cards: ${count}`;
+});
+
+socket.on('game_started', (startingPlayerIndex) => {
+    console.log(`Game started! Player ${startingPlayerIndex + 1} goes first.`);
+});
+
+socket.on('turn_changed', (currentPlayerIndex) => {
+    console.log(`It's now player ${currentPlayerIndex + 1}'s turn.`);
+    // You might want to visually indicate the current player
+});
+
+// Call this method when a player ends their turn
+function endTurn() {
+    socket.emit('end_turn');
+}
+
+socket.on('not_your_turn', () => {
+    alert('It is not your turn to draw a card.');
+});
+
+socket.on('no_cards_left', () => {
+    alert('No cards left in the middle pile.');
+});
+
+socket.on('game_ended', () => {
+    alert('The game has ended.');
 });
