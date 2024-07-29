@@ -100,7 +100,6 @@ function startGame() {
     }
 }
 
-
 function endTurnServer() {
     if (currentPlayerIndex !== null) {
         let nextPlayerIndex = getNextAlivePlayerIndex(currentPlayerIndex);
@@ -181,10 +180,37 @@ io.on('connection', (socket) => {
             io.to(socket.id).emit('not_your_turn');
         }
     });
+
+    socket.on('play_card', (card) => {
+        if (currentPlayerIndex !== null && players[currentPlayerIndex].id === socket.id) {
+            // Remove the card from the player's hand
+            let hand = playerHand[currentPlayerIndex];
+            let cardIndex = hand.findIndex(c => c.type === card);
+            if (cardIndex !== -1) {
+                hand.splice(cardIndex, 1);
+                playerHand[currentPlayerIndex] = hand;
+
+                // Notify all players of the updated played pile
+                io.emit('update_played_pile', card);
+
+                // Send the updated hand back to the player
+                io.to(players[currentPlayerIndex].id).emit('receive_hand', { playerIndex: currentPlayerIndex, hand });
+
+                // Start a 5-second timer before ending the turn
+                setTimeout(() => {
+                    endTurnServer();
+                }, 5000);
+            } else {
+                io.to(socket.id).emit('invalid_card_play');
+            }
+        } else {
+            io.to(socket.id).emit('not_your_turn');
+        }
+    });
 });
 
 const PORT = process.env.PORT || 3000;
 
 server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });

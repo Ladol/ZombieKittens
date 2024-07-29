@@ -42,6 +42,18 @@ document.getElementById('draw-button').addEventListener('click', () => {
     socket.emit('draw_card');
 });
 
+document.getElementById('play-card-button').addEventListener('click', () => {
+    let cardDropdown = document.querySelector(`#player${currentPlayerIndex + 1}-cards`);
+    if (cardDropdown) {
+        let selectedCard = cardDropdown.value;
+        if (selectedCard) {
+            socket.emit('play_card', selectedCard);
+        } else {
+            alert('Please select a card to play.');
+        }
+    }
+});
+
 socket.on('receive_hand', ({ playerIndex, hand }) => {
     console.log('Your hand:', hand);
     let cardDropdown = document.querySelector(`#player${playerIndex + 1}-cards`);
@@ -69,11 +81,14 @@ socket.on('update_card_count', (count) => {
 
 socket.on('game_started', (startingPlayerIndex) => {
     console.log(`Game started! Player ${startingPlayerIndex + 1} goes first.`);
+    currentPlayerIndex = startingPlayerIndex;
+    checkTurn();
 });
 
 socket.on('turn_changed', (currentPlayerIndex) => {
     console.log(`It's now player ${currentPlayerIndex + 1}'s turn.`);
-    // You might want to visually indicate the current player
+    currentPlayerIndex = currentPlayerIndex;
+    checkTurn();
 });
 
 // Call this method when a player ends their turn
@@ -92,3 +107,13 @@ socket.on('no_cards_left', () => {
 socket.on('game_ended', () => {
     alert('The game has ended.');
 });
+
+socket.on('update_played_pile', (card) => {
+    document.querySelector('.playedpile').textContent = `Last card played: ${card}`;
+});
+
+function checkTurn() {
+    let isCurrentPlayer = currentPlayerIndex === parseInt(socket.id);
+    document.getElementById('draw-button').disabled = !isCurrentPlayer;
+    document.getElementById('play-card-button').disabled = !isCurrentPlayer;
+}
